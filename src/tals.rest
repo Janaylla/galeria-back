@@ -7,3 +7,22 @@ Content-Type: application/json
 	"nickname": "jana",
 	"password": "123456"
 }
+###
+POST http://localhost:3003/users/login 
+Content-Type: application/json
+
+{
+	"login": "janaylla@gmail.com",
+	"nickname": "jana",
+	"password": "123456"
+}
+
+###
+POST http://localhost:3003/users/login 
+Content-Type: application/json
+
+{
+	"login": "janaylla@gmail.com",
+	"nickname": "jana",
+	"password": "123456"
+}

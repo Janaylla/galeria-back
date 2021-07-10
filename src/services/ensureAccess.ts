@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import { UnauthorizedError } from '../error/UnauthorizedError';
 import { Authenticator } from './Authenticator';
 
 export const ensureAccess = (
@@ -11,7 +10,7 @@ export const ensureAccess = (
     const token = request.headers.authorization;
 
     if (!token) {
-      throw new UnauthorizedError('token is required!');
+      throw new Error('token is required!');
     }
 
     const hashManager = new Authenticator();
