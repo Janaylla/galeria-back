@@ -5,7 +5,7 @@ export type userInputDTO = {
     email: string
 };
 
-export type userAuthenticatorCredentials = {
+export type userCredentials = {
     login: string
     password: string
 };
