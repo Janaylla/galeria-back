@@ -7,8 +7,6 @@ export type collection = {
     name?: string
 };
 
-export type ids = {
+export type id = {
     id: string
 }
-
-export type collectionsIds = ids[]

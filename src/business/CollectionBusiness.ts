@@ -1,4 +1,4 @@
-import { collection, collectionInputDTO } from '../types/collection'
+import { collection, collectionInputDTO , id} from '../types/collection'
 import { CollectionData } from '../data/CollectionData'
 import { IdGenerator } from '../services/IdGenerator'
 import { Collection } from '../entities/Collection'
@@ -51,22 +51,22 @@ export class CollectionBusiness {
     }
   }
 
-  public async getById(input: collection): Promise<Collection> {
+  public async getById(input: id): Promise<Collection> {
     try {
       const { id } = input;
 
       if (!id) {
         throw new Error(
-          'Missing dependencies: "login"'
+          'Missing dependencies: "id"'
         );
       }
-      const userDatabase = new CollectionData();
+      const collectionDatabase = new CollectionData();
 
-      const collection = await userDatabase.getById(id)
+      const collection = await collectionDatabase.getById(id)
 
       if (!collection) {
         throw new Error(
-          'internal error registering user, please try again'
+          'internal error registering collection, please try again'
         );
       }
 

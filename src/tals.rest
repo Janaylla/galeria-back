@@ -46,3 +46,19 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzIt
 }
 
 
+
+###
+POST http://localhost:3003/images 
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
+
+{
+	"subtitle": "asdasd asdas",
+	"file": "string",
+	"tags": [
+		"9b116fdc-38bb-4661-a7aa-af279eb10608"
+	],
+	"collection": "c633b18b-6c33-462f-8582-b4abbf29b094"
+}
+
+

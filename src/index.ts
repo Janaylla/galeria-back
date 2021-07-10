@@ -5,6 +5,7 @@ import cors from 'cors'
 import {userRouter} from './router/UserRouter'
 import {tagRouter} from './router/TagRouter'
 import {collectionRouter} from './router/CollectionRouter'
+import { imageRouter } from "./router/ImageRouter";
 dotenv.config();
 const app = express();
 
@@ -13,7 +14,8 @@ app.use(cors());
 
 app.use('/users', userRouter);
 app.use('/tags', tagRouter)
-app.use('/collection', collectionRouter)
+app.use('/collections', collectionRouter)
+app.use('/images', imageRouter)
 
 
 const server = app.listen(process.env.PORT|| 3003, () => {

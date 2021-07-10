@@ -40,7 +40,7 @@ export class TagBusiness {
 
       if (!id) {
         throw new Error(
-          'Missing dependencies: "login"'
+          'Missing dependencies: "id"'
         );
       }
       const userDatabase = new TagData();
@@ -49,7 +49,7 @@ export class TagBusiness {
 
       if (!tag) {
         throw new Error(
-          'internal error registering user, please try again'
+          'Tag not found'
         );
       }
 
@@ -60,9 +60,9 @@ export class TagBusiness {
     }
   }
 
-  public async getByIds(input: tagsIds): Promise<Tag[]> {
+  public async getByIds(input: string[]): Promise<Tag[]> {
     try {
-      const tagsIds: tagsIds = input;
+      const tagsIds: string[] = input;
 
       if (!tagsIds) {
         throw new Error(
@@ -70,16 +70,12 @@ export class TagBusiness {
         );
       }
 
-      const tags = tagsIds.map(async (tag) => {
-        const tagResult = await this.getById({ id: tag.id })
-        return tagResult
+      const tags:Tag[] = []
+      
+      tagsIds.forEach(async (id) => {
+        const tagResult = await this.getById({ id: id })
+        tags.push(tagResult)
       })
-
-      if(tags){
-        throw new Error(
-          'Tag not found'
-        );
-      }
 
       return tags;
 
