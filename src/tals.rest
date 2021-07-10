@@ -26,3 +26,23 @@ Content-Type: application/json
 	"nickname": "jana",
 	"password": "123456"
 }
+
+
+###
+POST http://localhost:3003/tags 
+Content-Type: application/json
+
+{
+	"name": "verão"
+}
+
+###
+POST http://localhost:3003/collection 
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
+
+{
+	"name": "verão"
+}
+
+
