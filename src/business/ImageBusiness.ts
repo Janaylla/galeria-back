@@ -73,4 +73,60 @@ export class ImageBusiness {
       throw new Error(error.sqlMessage || error.message || 500);
     }
   }
+  public async getById(id:string): Promise<Image> {
+    try {
+      if (!this.token) {
+        throw new UnauthorizedError()
+      }
+      if (!id) {
+        throw new Error(
+          'Missing dependencies: "id"'
+        );
+      }
+      const imageDatabase = new ImageData();
+     
+      const authenticator = new Authenticator();
+      const user = authenticator.getData(this.token);
+
+      const image = await imageDatabase.getById(id)
+
+      if (!image) {
+        throw new Error(
+          'Image not found'
+        );
+      }
+      const author = image.getAuthor()
+      if(!author || author.getId() != user.id){
+        throw new UnauthorizedError()
+      }
+      return image;
+      
+    } catch (error) {
+      throw new Error(error.sqlMessage || error.message || 500);
+    }
+  }
+  
+  public async getAll(): Promise<Image[]> {
+    try {
+      if (!this.token) {
+        throw new UnauthorizedError()
+      }
+    
+      const imageDatabase = new ImageData();
+     
+      const authenticator = new Authenticator();
+
+      const user = authenticator.getData(this.token);
+
+      const image = await imageDatabase.getAll(user.id);
+
+      if(!image){
+        throw new CustomError("images not founds", 400)
+      }
+      return image;
+        
+    } catch (error) {
+      throw new Error(error.sqlMessage || error.message || 500);
+    }
+  }
 }

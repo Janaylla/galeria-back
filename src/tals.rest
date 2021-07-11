@@ -53,12 +53,28 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
 
 {
-	"subtitle": "asdasd asdas",
+	"subtitle": "AAAAAAAAAAAAAaa",
 	"file": "string",
 	"tags": [
-		"9b116fdc-38bb-4661-a7aa-af279eb10608"
+		"9b116fdc-38bb-4661-a7aa-af279eb10608",
+		"9155ad07-ef11-4e38-a03c-e3bc6c057d75"
 	],
 	"collection": "c633b18b-6c33-462f-8582-b4abbf29b094"
 }
+
+
+###
+GET http://localhost:3003/images/e351f82d-6612-4b23-aa9f-7ec96583bb0a
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
+
+
+
+###
+GET http://localhost:3003/images
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
+
+
 
 
