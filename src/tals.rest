@@ -48,6 +48,12 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzIt
 }
 
 
+###
+GET http://localhost:3003/collections 
+Content-Type: application/json
+###
+GET http://localhost:3003/tags 
+Content-Type: application/json
 
 ###
 POST http://localhost:3003/images 
@@ -70,10 +76,8 @@ GET http://localhost:3003/images/e351f82d-6612-4b23-aa9f-7ec96583bb0a
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
 
-
-
 ###
-GET http://localhost:3003/images
+GET  https://galeria-janaylla.herokuapp.com/users/images
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
 
