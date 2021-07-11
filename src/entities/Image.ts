@@ -1,55 +1,57 @@
-export class User {
-    constructor(
-      private id: string,
-      private subtitle: string,
-      private author: string,
-      private date: string,
-      private file: string,
-      private tags: string[],
-      private collection: string
-    ) {}
+import { Tag } from './Tag'
+import { Collection } from './Collection'
+import { User } from './User'
+export class Image {
+  constructor(
+    private id: string,
+    private subtitle: string,
+    private file: string,
+    private date: string | Date,
+    private tags?: Tag[],
+    private collection?: Collection,
+    private author?: User,
+  ) { }
 
-    public getCollection(): string {
-      return this.collection;
-    }
-    public setCollection(value: string) {
-      this.collection = value;
-    }
-    public getTags(): string[] {
-      return this.tags;
-    }
-    public setTags(value: string[]) {
-      this.tags = value;
-    }
-    public getFile(): string {
-      return this.file;
-    }
-    public setFile(value: string) {
-      this.file = value;
-    }
-    public getDate(): string {
-      return this.date;
-    }
-    public setDate(value: string) {
-      this.date = value;
-    }
-    public getAuthor(): string {
-      return this.author;
-    }
-    public setAuthor(value: string) {
-      this.author = value;
-    }
-    public getSubtitle(): string {
-      return this.subtitle;
-    }
-    public setSubtitle(value: string) {
-      this.subtitle = value;
-    }
-    public getId(): string {
-      return this.id;
-    }
-    public setId(value: string) {
-      this.id = value;
-    }
+  public getCollection(): Collection | false {
+    return this.collection ? this.collection : false;
   }
-  
+  public setCollection(value: Collection) {
+    this.collection = value;
+  }
+  public getTags(): Tag[] | false {
+    return this.tags ? this.tags : false
+  }
+  public setTags(value: Tag[]) {
+    this.tags = value;
+  }
+  public getFile(): string {
+    return this.file;
+  }
+  public setFile(value: string) {
+    this.file = value;
+  }
+  public getDate(): string | Date {
+    return this.date;
+  }
+  public setDate(value: string | Date) {
+    this.date = value;
+  }
+  public getAuthor(): User | false {
+    return this.author ? this.author : false;
+  }
+  public setAuthor(value: User) {
+    this.author = value;
+  }
+  public getSubtitle(): string {
+    return this.subtitle;
+  }
+  public setSubtitle(value: string) {
+    this.subtitle = value;
+  }
+  public getId(): string {
+    return this.id;
+  }
+  public setId(value: string) {
+    this.id = value;
+  }
+}
