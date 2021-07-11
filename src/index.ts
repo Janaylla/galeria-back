@@ -6,6 +6,7 @@ import {userRouter} from './router/UserRouter'
 import {tagRouter} from './router/TagRouter'
 import {collectionRouter} from './router/CollectionRouter'
 import { imageRouter } from "./router/ImageRouter";
+
 dotenv.config();
 const app = express();
 
