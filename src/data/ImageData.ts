@@ -30,7 +30,25 @@ export class ImageData extends BaseData {
             throw new Error(error.sqlMessage || error.message);
         }
     }
+    public async deleteById(id: string): Promise<Image | false> {
+        try {
+            const result = await this.getConnection()
+                .raw(`
+                SELECT i.id, i.subtitle, i.date, i.file, i.author_id, u.name as author_name, u.nickname as author_nickname
+                FROM galeria_image as i
+                LEFT JOIN galeria_user as u ON u.id = i.author_id
+                WHERE i.id = '${id}'
+                `)
 
+            if (!result[0].length || !result[0][0].subtitle) {
+                return false;
+            }
+            return this.toImageModel(result[0], true);
+
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
     public async selectById(id: string): Promise<Image | false> {
         try {
             const result = await this.getConnection()

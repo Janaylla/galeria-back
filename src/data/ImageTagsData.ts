@@ -37,7 +37,7 @@ export class ImageTagData extends BaseData {
                  (image_id, tag_id) VALUES ('${image_id}', '${tag_id}')
                 `)
 
-            return (result[0].affectedRows === true)
+            return (result[0].affectedRows == true)
 
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);
@@ -55,23 +55,24 @@ export class ImageTagData extends BaseData {
         const result = await this.getConnection().raw(`
             DELETE FROM ${ImageTagData.TABLE_NAME}
             WHERE tag_id = '${tag_id}' and 
-            image_id = '${image_id}';
+            image_id = '${image_id}'
         `)
-        return (result[0].affectedRows === true)
+        
+        return (result[0].affectedRows == true)
     }
     public async delByImage(image_id: string): Promise<boolean> {
         const result = await this.getConnection().raw(`
             DELETE FROM ${ImageTagData.TABLE_NAME}
             WHERE image_id = '${image_id}';
         `)
-        return (result[0].affectedRows === true)
+        return (result[0].affectedRows == true)
     }
     public async delByTag(tag_id: string): Promise<boolean> {
         const result = await this.getConnection().raw(`
             DELETE FROM ${ImageTagData.TABLE_NAME}
             WHERE tag_id = '${tag_id}';
         `)
-        return (result[0].affectedRows === true)
+        return (result[0].affectedRows == true)
     }
     private toTagsModel(result: any): Tag[] {
         const tags = result.map((tagResult: any) => {

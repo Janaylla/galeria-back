@@ -4,3 +4,11 @@ export type imageInputDTO = {
 	tags: string[],
 	collections: string[]
 }
+export type ImageTagInputDTO = {
+	image_id: string,
+	tag_id: string 
+}
+export type ImageCollectionInputDTO = {
+	image_id: string,
+	collection_id: string 
+}

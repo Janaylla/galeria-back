@@ -8,7 +8,6 @@ export class ImageCollectionData extends BaseData {
 
     public async inserts(image: Image): Promise<true | false> {
         try {
-            console.log("asd")
             const image_id = image.getId()
             const collections = image.getCollections()
             if (!image_id) {
@@ -26,26 +25,61 @@ export class ImageCollectionData extends BaseData {
             })
 
             return true;
+
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-    public async selectByImage(collection_id: string): Promise<Collection[] | false> {
+    public async insert(image_id: string, collection_id: string): Promise<true | false> {
+        try {
+            const result = await this.getConnection().raw(`
+                INSERT INTO ${ImageCollectionData.TABLE_NAME}
+                 (image_id, collection_id) VALUES ('${image_id}', '${collection_id}')`)
 
+            return (result[0].affectedRows == true)
+
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
+    public async delByImageAndCollection(image_id: string, collection_id: string): Promise<boolean> {
         const result = await this.getConnection().raw(`
-        SELECT * FROM galeria_collection as c
-        JOIN galeria_image_collection as ic ON ic.collection_id = c.id
-        WHERE ic.image_id LIKE '${collection_id}';
+            DELETE FROM ${ImageCollectionData.TABLE_NAME}
+            WHERE collection_id = '${collection_id}' and 
+            image_id = '${image_id}'
         `)
+
+        return (result[0].affectedRows == true)
+    }
+    public async delByImage(image_id: string): Promise<boolean> {
+        const result = await this.getConnection().raw(`
+            DELETE FROM ${ImageCollectionData.TABLE_NAME}
+            WHERE image_id = '${image_id}';
+        `)
+        return (result[0].affectedRows == true)
+    }
+    public async delByCollection(collection_id: string): Promise<boolean> {
+        const result = await this.getConnection().raw(`
+            DELETE FROM ${ImageCollectionData.TABLE_NAME}
+            WHERE collection_id = '${collection_id}';
+        `)
+        return (result[0].affectedRows == true)
+    }
+
+    public async selectByImage(image_id: string): Promise<Collection[] | false> {
+        const result = await this.getConnection().raw(`
+            SELECT * FROM galeria_collection as c
+            JOIN galeria_image_collection as ic ON ic.collection_id = c.id
+            WHERE ic.image_id = '${image_id}';`)
         return this.toConnectionsModel(result[0]);
     }
     private toConnectionsModel(result: any): Collection[] {
-        const tags = result.map((tagResult: any) => {
+        const collections = result.map((collectionResult: any) => {
             const {
                 id,
                 name,
                 author_id
-            } = tagResult;
+            } = collectionResult;
 
             const collection = new Collection(
                 id,
@@ -55,6 +89,6 @@ export class ImageCollectionData extends BaseData {
             return collection
         })
 
-        return tags;
+        return collections;
     }
 }
