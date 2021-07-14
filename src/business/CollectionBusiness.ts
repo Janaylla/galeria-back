@@ -1,16 +1,16 @@
-import { collection, collectionInputDTO , id} from '../types/collection'
+import { collection, collectionInputDTO } from '../types/collection'
 import { CollectionData } from '../data/CollectionData'
 import { IdGenerator } from '../services/IdGenerator'
 import { Collection } from '../entities/Collection'
-import { Authenticator } from '../services/Authenticator'
-import { UnauthorizedError } from '../error/UnauthorizedError'
+import { Authenticator } from '../services/Authenticator';
+import { UnauthorizedError } from '../error/UnauthorizedError';
 
 export class CollectionBusiness {
   private token: string | undefined;
   constructor(token?: string) {
     this.token = token
   }
-  public async create(input: collectionInputDTO): Promise<Collection> {
+  public async create(input: collectionInputDTO): Promise<Collection> { 
     try {
       const { name } = input;
 
@@ -29,7 +29,7 @@ export class CollectionBusiness {
       }
 
       const authenticator = new Authenticator();
-      const author = authenticator.getData(this.token);
+      const author = authenticator.getData(this.token)
 
       if (!author) {
         throw new UnauthorizedError()
@@ -37,32 +37,6 @@ export class CollectionBusiness {
 
       const collectionForDatabase = new Collection(id, name, author.id);
       const collection = await collectionDatabase.create(collectionForDatabase);
-
-      if (!collection) {
-        throw new Error(
-          'Internal error registering collection, please try again'
-        );
-      }
-
-      return collection;
-
-    } catch (error) {
-      throw new Error(error.sqlMessage || error.message || 500);
-    }
-  }
-
-  public async getById(input: id): Promise<Collection> {
-    try {
-      const { id } = input;
-
-      if (!id) {
-        throw new Error(
-          'Missing dependencies: "id"'
-        );
-      }
-      const collectionDatabase = new CollectionData();
-
-      const collection = await collectionDatabase.getById(id)
 
       if (!collection) {
         throw new Error(
@@ -76,6 +50,57 @@ export class CollectionBusiness {
       throw new Error(error.sqlMessage || error.message || 500);
     }
   }
+
+  public async getById(input: collection): Promise<Collection> {
+    try {
+      const { id } = input;
+
+      if (!id) {
+        throw new Error(
+          'Missing dependencies: "id"'
+        );
+      }
+      const userDatabase = new CollectionData();
+
+      const collection = await userDatabase.getById(id)
+
+      if (!collection) {
+        throw new Error(
+          'Collection not found'
+        );
+      }
+
+      return collection;
+      
+    } catch (error) {
+      throw new Error(error.sqlMessage || error.message || 500);
+    }
+  }
+
+  public async getByIds(input: string[]): Promise<Collection[]> {
+    try {
+      const collectionsIds: string[] = input;
+
+      if (!collectionsIds) {
+        throw new Error(
+          'Missing dependencies: "collections"'
+        );
+      }
+
+      const collections:Collection[] = []
+      
+      collectionsIds.forEach(async (id) => {
+        const collectionResult = await this.getById({ id: id })
+        collections.push(collectionResult)
+      })
+
+      return collections;
+
+    } catch (error) {
+      throw new Error(error.sqlMessage || error.message || 500);
+    }
+  }
+
   public async getAll(): Promise<Collection[]> {
     try {
       const userDatabase = new CollectionData();
@@ -89,7 +114,7 @@ export class CollectionBusiness {
       }
 
       return collections;
-
+      
     } catch (error) {
       throw new Error(error.sqlMessage || error.message || 500);
     }

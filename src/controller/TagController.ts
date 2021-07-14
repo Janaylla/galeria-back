@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { TagBusiness } from '../business/TagBusiness';
 import { BaseData } from '../data/BaseData';
-import { tag } from '../types/tag'
 
 export class TagController {
   public async create(request: Request, response: Response) {

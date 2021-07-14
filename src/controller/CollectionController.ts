@@ -6,9 +6,8 @@ export class CollectionController {
   public async create(request: Request, response: Response) {
     try {
       const { name } = request.body;
-      const token = request.headers.authorization;
 
-      const collectionBusiness = new CollectionBusiness(token);
+      const collectionBusiness = new CollectionBusiness();
       await collectionBusiness.create({
         name
       })
@@ -30,6 +29,23 @@ export class CollectionController {
       const collection = await collectionBusiness.getById({ id: id })
 
       response.json({ message: 'Success', collection });
+
+    } catch (error) {
+      response
+        .status(error.code || 500)
+        .json({ message: error.sqlMessage || error.message });
+    }
+
+    await BaseData.destroyConnection();
+  }
+  public async getByIds(request: Request, response: Response) {
+    try {
+      const { ids } = request.body;
+
+      const collectionBusiness = new CollectionBusiness();
+      const collections = await collectionBusiness.getByIds(ids)
+
+      response.json({ message: 'Success', collections });
 
     } catch (error) {
       response

@@ -17,15 +17,14 @@ export class ImageTagData extends BaseData {
                 throw new CustomError('Tag not found', 400);
             }
 
-            tags.forEach(async (tag:Tag) => {
-                await this.getConnection().raw(`
+             tags.forEach(async (tag:Tag) => {
+                 await this.getConnection().raw(`
                 INSERT INTO ${ImageTagData.TABLE_NAME}
-                 (id_image, id_tag) VALUES ('${id_image}', '${tag.getId()}')
+                 (image_id, tag_id) VALUES ('${id_image}', '${tag.getId()}')
                 `)
             })
-                      
-            return true;
 
+            return true;
 
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);

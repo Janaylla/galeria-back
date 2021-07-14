@@ -10,6 +10,7 @@ import { TagBusiness } from './TagBusiness'
 import { UserData } from '../data/UserData'
 import { ImageTagData } from '../data/ImageTagsData'
 import { DataConvert } from '../services/DataConvert'
+import { ImageCollectionData } from '../data/ImageCollectionData'
 
 export class ImageBusiness {
   private token: string | undefined;
@@ -18,15 +19,16 @@ export class ImageBusiness {
   }
   public async create(input: imageInputDTO): Promise<Image> {
     try {
-      const { subtitle,  file, tags, collection } = input;
+      const { subtitle,  file, tags, collections } = input;
 
-      if (!subtitle || !tags || !collection || !file) {
+      if (!subtitle || !tags || !collections || !file) {
         throw new CustomError(
           'Missing dependencies', 400
         );
       }
-      const imageDatabase = new ImageData();;
-      const imageTagDatabase = new ImageTagData();;
+      const imageDatabase = new ImageData();
+      const imageTagDatabase = new ImageTagData();
+      const imageCollectionDatabase = new ImageCollectionData()
 
       const idGenerator = new IdGenerator();
       const id = idGenerator.generate();
@@ -41,11 +43,10 @@ export class ImageBusiness {
       if (!author) {
         throw new UnauthorizedError()
       }
-
       const date = new DataConvert(new Date())
 
-      const collectionBusiness = new CollectionBusiness(this.token)
-      const collectionClass = await collectionBusiness.getById({id: collection})
+      const collectionsBusiness = new CollectionBusiness(this.token)
+      const collectionsClass = await collectionsBusiness.getByIds(collections)
       
       const tagBusiness = new TagBusiness()
       const tagsClass = await tagBusiness.getByIds(tags)
@@ -56,11 +57,14 @@ export class ImageBusiness {
       if(!authorClass){
         throw new UnauthorizedError();
       }
-      const imageForDatabase = new Image(id, subtitle, file, date.getDateToMySql(), tagsClass, collectionClass, authorClass);
+      const imageForDatabase = new Image(id, subtitle, file, date.getDateToMySql(), tagsClass, collectionsClass, authorClass);
   
       const image = await imageDatabase.create(imageForDatabase);
-      await imageTagDatabase.create(imageForDatabase)
- 
+      const a = await imageTagDatabase.create(imageForDatabase)
+      console.log("imageForDatabase", imageForDatabase)
+      const b = await imageCollectionDatabase.create(imageForDatabase)
+
+      console.log("a", a,"b",  b)
       if (!image) {
         throw new Error(
           'Internal error registering image, please try again'
