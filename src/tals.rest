@@ -79,14 +79,14 @@ GET http://localhost:3003/images/1388afac-450b-43ab-8bf9-adca18d4cf5c
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 
-
+###
 GET http://localhost:3003/images/f5c88934-ef6a-4497-81f1-65b5df4125c7
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 
 
 ###
-GET  https://galeria-janaylla.herokuapp.com/users/images
+GET  http://localhost:3003/images
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 

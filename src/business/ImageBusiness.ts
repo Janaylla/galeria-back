@@ -57,7 +57,7 @@ export class ImageBusiness {
       if(!authorClass){
         throw new UnauthorizedError();
       }
-      const imageForDatabase = new Image(id, subtitle, file, date.getDateToMySql(), tagsClass, collectionsClass, authorClass);
+      const imageForDatabase = new Image(id, subtitle, file, date.getDateToMySql(), authorClass, tagsClass, collectionsClass);
   
       const image = await imageDatabase.create(imageForDatabase);
       await imageTagDatabase.create(imageForDatabase)

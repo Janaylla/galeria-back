@@ -7,9 +7,9 @@ export class Image {
     private subtitle: string,
     private file: string,
     private date: string | Date,
+    private author?: User,
     private tags?: Tag[],
     private collections?: Collection[],
-    private author?: User,
   ) { }
 
   public getCollections(): Collection[] | false {

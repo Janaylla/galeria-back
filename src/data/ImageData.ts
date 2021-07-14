@@ -1,6 +1,4 @@
-import { Collection } from '../entities/Collection';
 import { Image } from '../entities/Image'
-import { Tag } from '../entities/Tag';
 import { User } from '../entities/User';
 import { CustomError } from '../error/CustomError';
 import { BaseData } from './BaseData'
@@ -56,7 +54,8 @@ export class ImageData extends BaseData {
         try {
             const result = await this.getConnection()
                 .raw(`
-                SELECT i.id, i.subtitle, i.date, i.file, i.author_id, u.name as author_name, u.nickname as author_nickname
+                SELECT i.id, i.subtitle, i.date, i.file, i.author_id,
+                 u.name as author_name, u.nickname as author_nickname
                 FROM galeria_image as i
                 LEFT JOIN galeria_user as u ON u.id = i.author_id
                 WHERE i.author_id = '${id}'
@@ -78,41 +77,46 @@ export class ImageData extends BaseData {
             date,
             file,
             author_id,
-            author_name, 
+            author_name,
             author_nickname
         } = result[0];
 
-    
-         const author = new User(author_id, author_name, author_nickname)
 
-          
+        const author = new User(author_id, author_name, author_nickname)
+
         const image = new Image(
             id,
             subtitle,
             file,
             date,
+            author,
             [],
             [],
-            author
         );
 
         return image;
     }
-    
+
     private toImagesModel(result: any): Image[] {
         return result.map((item: any) => {
             const {
                 id,
                 subtitle,
                 date,
-                file
+                file,
+                author_id,
+                author_name,
+                author_nickname
             } = item;
-    
+
+            const author = new User(author_id, author_name, author_nickname)
+
             const image = new Image(
                 id,
                 subtitle,
                 file,
-                date
+                date,
+                author
             );
             return image
         })
