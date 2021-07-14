@@ -7,16 +7,16 @@ export class Image {
     private subtitle: string,
     private file: string,
     private date: string | Date,
-    private tags?: Tag[],
-    private collection?: Collection,
     private author?: User,
+    private tags?: Tag[],
+    private collections?: Collection[],
   ) { }
 
-  public getCollection(): Collection | false {
-    return this.collection ? this.collection : false;
+  public getCollections(): Collection[] | false {
+    return this.collections ? this.collections : false;
   }
-  public setCollection(value: Collection) {
-    this.collection = value;
+  public setCollections(value: Collection[]) {
+    this.collections = value;
   }
   public getTags(): Tag[] | false {
     return this.tags ? this.tags : false

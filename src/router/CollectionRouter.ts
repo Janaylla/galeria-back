@@ -6,5 +6,7 @@ const collectionRouter = express.Router();
 const collectionController = new CollectionController();
 
 collectionRouter.post('', collectionController.create);
+collectionRouter.get('', collectionController.getAll);
+
 
 export { collectionRouter };

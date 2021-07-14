@@ -9,14 +9,14 @@ export class ImageController {
         subtitle,
         file,
         tags,
-        collection } = request.body;
+        collections } = request.body;
       const token = request.headers.authorization;
       const imageBusiness = new ImageBusiness(token);
       await imageBusiness.create({
         subtitle,
         file,
         tags,
-        collection 
+        collections
       })
 
       response.json({ message: 'Success' });

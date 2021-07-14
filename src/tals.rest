@@ -48,11 +48,17 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzIt
 }
 
 
+###
+GET http://localhost:3003/collections 
+Content-Type: application/json
+###
+GET http://localhost:3003/tags 
+Content-Type: application/json
 
 ###
 POST http://localhost:3003/images 
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 
 {
 	"subtitle": "AAAAAAAAAAAAAaa",
@@ -61,22 +67,26 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzIt
 		"9b116fdc-38bb-4661-a7aa-af279eb10608",
 		"9155ad07-ef11-4e38-a03c-e3bc6c057d75"
 	],
-	"collection": "c633b18b-6c33-462f-8582-b4abbf29b094"
+	"collections":
+	[
+		"c633b18b-6c33-462f-8582-b4abbf29b094"
+	]
 }
 
 
 ###
-GET http://localhost:3003/images/e351f82d-6612-4b23-aa9f-7ec96583bb0a
+GET http://localhost:3003/images/1388afac-450b-43ab-8bf9-adca18d4cf5c
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 
+###
+GET http://localhost:3003/images/f5c88934-ef6a-4497-81f1-65b5df4125c7
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 
 
 ###
-GET http://localhost:3003/images
+GET  http://localhost:3003/images
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNTk0MzI0NywiZXhwIjoxNjI2MDI5NjQ3fQ.WpEYqB2j_F28KbiLFQEJueX1vaQmZBvdUT235zTAD2Q
-
-
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 
