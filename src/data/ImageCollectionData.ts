@@ -9,9 +9,9 @@ export class ImageCollectionData extends BaseData {
     public async create(image: Image): Promise<true | false> {
         try {
             console.log("asd")
-            const id_image = image.getId()
+            const image_id = image.getId()
             const collections = image.getCollections()
-            if (!id_image) {
+            if (!image_id) {
                 throw new CustomError('Image not found', 400);
             }
             if (!collections) {
@@ -21,7 +21,7 @@ export class ImageCollectionData extends BaseData {
             collections.forEach(async (collection: Collection) => {
                 await this.getConnection().raw(`
                 INSERT INTO ${ImageCollectionData.TABLE_NAME}
-                 (image_id, collection_id) VALUES ('${id_image}', '${collection.getId()}')
+                 (image_id, collection_id) VALUES ('${image_id}', '${collection.getId()}')
                 `)
             })
 
@@ -29,5 +29,32 @@ export class ImageCollectionData extends BaseData {
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);
         }
+    }
+    public async getByImage(collection_id: string): Promise<Collection[] | false> {
+
+        const result = await this.getConnection().raw(`
+        SELECT * FROM galeria_collection as c
+        JOIN galeria_image_collection as ic ON ic.collection_id = c.id
+        WHERE ic.image_id LIKE '${collection_id}';
+        `)
+        return this.toConnectionsModel(result[0]);
+    }
+    private toConnectionsModel(result: any): Collection[] {
+        const tags = result.map((tagResult: any) => {
+            const {
+                id,
+                name,
+                author_id
+            } = tagResult;
+
+            const collection = new Collection(
+                id,
+                name,
+                author_id
+            );
+            return collection
+        })
+
+        return tags;
     }
 }

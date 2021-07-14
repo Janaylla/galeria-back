@@ -8,9 +8,9 @@ export class ImageTagData extends BaseData {
 
     public async create(image: Image): Promise<true | false> {
         try {
-            const id_image = image.getId()
+            const image_id = image.getId()
             const tags = image.getTags()
-            if(!id_image){
+            if(!image_id){
                 throw new CustomError('Image not found', 400);
             }
             if(!tags){
@@ -20,7 +20,7 @@ export class ImageTagData extends BaseData {
              tags.forEach(async (tag:Tag) => {
                  await this.getConnection().raw(`
                 INSERT INTO ${ImageTagData.TABLE_NAME}
-                 (image_id, tag_id) VALUES ('${id_image}', '${tag.getId()}')
+                 (image_id, tag_id) VALUES ('${image_id}', '${tag.getId()}')
                 `)
             })
 
@@ -29,5 +29,30 @@ export class ImageTagData extends BaseData {
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);
         }
+    }
+    public async getByImage(image_id: string): Promise<Tag[] | false>{
+     
+        const result = await this.getConnection().raw(`
+            SELECT * FROM galeria_tag as t
+            JOIN galeria_image_tag as it ON it.tag_id = t.id
+            WHERE it.image_id LIKE '${image_id}';
+        `)
+        return this.toTagsModel(result[0]);
+    } 
+    private toTagsModel(result: any): Tag[] {
+        const tags = result.map((tagResult: any) => {
+            const {
+                id,
+                name
+            } = tagResult;
+
+            const tag = new Tag(
+                id,
+                name
+            );
+            return tag
+        })
+
+        return tags;
     }
 }

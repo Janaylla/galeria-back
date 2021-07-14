@@ -60,11 +60,11 @@ export class ImageBusiness {
       const imageForDatabase = new Image(id, subtitle, file, date.getDateToMySql(), tagsClass, collectionsClass, authorClass);
   
       const image = await imageDatabase.create(imageForDatabase);
-      const a = await imageTagDatabase.create(imageForDatabase)
+      await imageTagDatabase.create(imageForDatabase)
       console.log("imageForDatabase", imageForDatabase)
-      const b = await imageCollectionDatabase.create(imageForDatabase)
 
-      console.log("a", a,"b",  b)
+      await imageCollectionDatabase.create(imageForDatabase)
+
       if (!image) {
         throw new Error(
           'Internal error registering image, please try again'
@@ -88,12 +88,13 @@ export class ImageBusiness {
         );
       }
       const imageDatabase = new ImageData();
-     
+      const imageTagDatabase = new ImageTagData();
+      const imageCollectionDatabase = new ImageCollectionData()
+
       const authenticator = new Authenticator();
       const user = authenticator.getData(this.token);
 
       const image = await imageDatabase.getById(id)
-
       if (!image) {
         throw new Error(
           'Image not found'
@@ -103,6 +104,8 @@ export class ImageBusiness {
       if(!author || author.getId() != user.id){
         throw new UnauthorizedError()
       }
+      image.setTags(await imageTagDatabase.getByImage(id) || [])
+      image.setCollections(await imageCollectionDatabase.getByImage(id) || [])
       return image;
       
     } catch (error) {
