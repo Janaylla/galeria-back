@@ -90,9 +90,7 @@ GET  http://localhost:3003/images
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 
-
 ###
 GET  http://localhost:3003/images
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
-

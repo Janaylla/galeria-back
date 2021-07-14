@@ -1,4 +1,4 @@
-import { tag, tagInputDTO, tagsIds } from '../types/tag'
+import { imageTagsInputDTO, tag, tagInputDTO, tagsIds } from '../types/tag'
 import { TagData } from '../data/TagData'
 import { IdGenerator } from '../services/IdGenerator'
 import { Tag } from '../entities/Tag'
@@ -19,7 +19,7 @@ export class TagBusiness {
       const id = idGenerator.generate();
 
       const tagForDatabase = new Tag(id, name);
-      const tag = await tagDatabase.create(tagForDatabase);
+      const tag = await tagDatabase.insert(tagForDatabase);
 
       if (!tag) {
         throw new Error(
@@ -33,7 +33,6 @@ export class TagBusiness {
       throw new Error(error.sqlMessage || error.message || 500);
     }
   }
-
   public async getById(input: tag): Promise<Tag> {
     try {
       const { id } = input;
@@ -45,7 +44,7 @@ export class TagBusiness {
       }
       const userDatabase = new TagData();
 
-      const tag = await userDatabase.getById(id)
+      const tag = await userDatabase.selectById(id)
 
       if (!tag) {
         throw new Error(
@@ -54,7 +53,7 @@ export class TagBusiness {
       }
 
       return tag;
-      
+
     } catch (error) {
       throw new Error(error.sqlMessage || error.message || 500);
     }
@@ -70,8 +69,8 @@ export class TagBusiness {
         );
       }
 
-      const tags:Tag[] = []
-      
+      const tags: Tag[] = []
+
       tagsIds.forEach(async (id) => {
         const tagResult = await this.getById({ id: id })
         tags.push(tagResult)
@@ -88,7 +87,7 @@ export class TagBusiness {
     try {
       const userDatabase = new TagData();
 
-      const tags = await userDatabase.getAll()
+      const tags = await userDatabase.selectAll()
 
       if (!tags) {
         throw new Error(
@@ -97,7 +96,7 @@ export class TagBusiness {
       }
 
       return tags;
-      
+
     } catch (error) {
       throw new Error(error.sqlMessage || error.message || 500);
     }

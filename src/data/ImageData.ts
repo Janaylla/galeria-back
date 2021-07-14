@@ -6,7 +6,7 @@ import { BaseData } from './BaseData'
 export class ImageData extends BaseData {
     private static TABLE_NAME = 'galeria_image';
 
-    public async create(image: Image): Promise<Image | false> {
+    public async insert(image: Image): Promise<Image | false> {
         try {
             const author = image.getAuthor()
             if (!author) {
@@ -23,7 +23,7 @@ export class ImageData extends BaseData {
             '${author.getId()}')
             `)
             console.count("oi")
-            const BaseData = await this.getById(image.getId());
+            const BaseData = await this.selectById(image.getId());
 
             return BaseData;
         } catch (error) {
@@ -31,7 +31,7 @@ export class ImageData extends BaseData {
         }
     }
 
-    public async getById(id: string): Promise<Image | false> {
+    public async selectById(id: string): Promise<Image | false> {
         try {
             const result = await this.getConnection()
                 .raw(`
@@ -50,7 +50,7 @@ export class ImageData extends BaseData {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-    public async getAll(id: string): Promise<Image[] | false> {
+    public async selectAll(id: string): Promise<Image[] | false> {
         try {
             const result = await this.getConnection()
                 .raw(`

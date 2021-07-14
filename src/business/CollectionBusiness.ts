@@ -36,7 +36,7 @@ export class CollectionBusiness {
       }
 
       const collectionForDatabase = new Collection(id, name, author.id);
-      const collection = await collectionDatabase.create(collectionForDatabase);
+      const collection = await collectionDatabase.insert(collectionForDatabase);
 
       if (!collection) {
         throw new Error(
@@ -62,7 +62,7 @@ export class CollectionBusiness {
       }
       const userDatabase = new CollectionData();
 
-      const collection = await userDatabase.getById(id)
+      const collection = await userDatabase.selectById(id)
 
       if (!collection) {
         throw new Error(
@@ -105,7 +105,7 @@ export class CollectionBusiness {
     try {
       const userDatabase = new CollectionData();
 
-      const collections = await userDatabase.getAll()
+      const collections = await userDatabase.selectAll()
 
       if (!collections) {
         throw new Error(

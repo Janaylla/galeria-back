@@ -6,7 +6,7 @@ import { BaseData } from './BaseData'
 export class ImageCollectionData extends BaseData {
     private static TABLE_NAME = 'galeria_image_collection';
 
-    public async create(image: Image): Promise<true | false> {
+    public async inserts(image: Image): Promise<true | false> {
         try {
             console.log("asd")
             const image_id = image.getId()
@@ -30,7 +30,7 @@ export class ImageCollectionData extends BaseData {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-    public async getByImage(collection_id: string): Promise<Collection[] | false> {
+    public async selectByImage(collection_id: string): Promise<Collection[] | false> {
 
         const result = await this.getConnection().raw(`
         SELECT * FROM galeria_collection as c

@@ -4,11 +4,11 @@ import { BaseData } from './BaseData'
 export class UserData extends BaseData {
     private static TABLE_NAME = 'galeria_user';
 
-    public async create(user: User): Promise<User | false> {
+    public async insert(user: User): Promise<User | false> {
         try {
             await this.getConnection().insert(user).into(UserData.TABLE_NAME);
 
-            const BaseData = await this.getById(user.getId());
+            const BaseData = await this.selectById(user.getId());
 
             return BaseData;
         } catch (error) {
@@ -16,7 +16,7 @@ export class UserData extends BaseData {
         }
     }
 
-    public async getById(id: string): Promise<User | false> {
+    public async selectById(id: string): Promise<User | false> {
         try {
             const result = await this.getConnection()
                 .select()
@@ -31,7 +31,7 @@ export class UserData extends BaseData {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-    public async getByEmail(email: string): Promise<User | false> {
+    public async selectByEmail(email: string): Promise<User | false> {
         try {
             const result = await this.getConnection()
                 .select()
@@ -46,7 +46,7 @@ export class UserData extends BaseData {
             throw new Error(error.sqlMessage || error.message);
         }
     }
-    public async getByNickname(nickname: string): Promise<User | false> {
+    public async selectByNickname(nickname: string): Promise<User | false> {
         try {
             const result = await this.getConnection()
                 .select()
