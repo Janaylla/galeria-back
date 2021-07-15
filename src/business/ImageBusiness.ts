@@ -1,4 +1,4 @@
-import { ImageCollectionInputDTO, imageInputDTO, ImageTagInputDTO } from '../types/image'
+import { ImageCollectionInputDTO, imageDelInputDTO, imageInputDTO, ImageTagInputDTO } from '../types/image'
 import { ImageData } from '../data/ImageData'
 import { IdGenerator } from '../services/IdGenerator'
 import { Image } from '../entities/Image'
@@ -113,7 +113,49 @@ export class ImageBusiness {
       throw new Error(error.sqlMessage || error.message || 500);
     }
   }
+  public async del(input: imageDelInputDTO): Promise<void> {
+    try {
+      const { id } = input
+      console.log("input", input)
+      const imageDatabase = new ImageData();
+      const imageTagDatabase = new ImageTagData();
+      const imageCollectionDatabase = new ImageCollectionData();
+     
+      if (!this.token) {
+        throw new UnauthorizedError()
+      }
+      if (!id) {
+        throw new CustomError(
+          'Missing dependencies', 400
+        );
+      }
+      
+      const image = await imageDatabase.selectById(id)
 
+      if (!image) {
+        throw new CustomError(
+          'Image not found, check dependencies', 404
+        );
+      }
+      const authenticator = new Authenticator();
+      const user = authenticator.getData(this.token);
+      
+      const author = image.getAuthor()
+      if (!author || author.getId() != user.id) {
+        throw new UnauthorizedError()
+      }
+      await imageTagDatabase.delByImage(image.getId())
+      await imageCollectionDatabase.delByImage(image.getId())
+      const result = await imageDatabase.delById(image.getId())
+
+      if(!result) {
+        throw new CustomError("Internal Server Error", 500 )
+      }
+    }
+    catch (error) {
+      throw new Error(error.sqlMessage || error.message || 500);
+    }
+  }
   public async getAll(): Promise<Image[]> {
     try {
       if (!this.token) {
@@ -140,7 +182,7 @@ export class ImageBusiness {
   public async delImageTag(input: ImageTagInputDTO): Promise<void> {
     try {
       const { image_id, tag_id } = input
-      console.log("input", input)
+      
       const imageDatabase = new ImageData();
       const tagDatabase = new TagData()
 

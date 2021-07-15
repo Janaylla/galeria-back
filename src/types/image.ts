@@ -12,3 +12,6 @@ export type ImageCollectionInputDTO = {
 	image_id: string,
 	collection_id: string 
 }
+export type imageDelInputDTO = {
+	id: string
+}

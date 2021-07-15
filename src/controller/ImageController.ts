@@ -28,6 +28,23 @@ export class ImageController {
 
     await BaseData.destroyConnection();
   }
+   public async del(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+      const token = request.headers.authorization;
+      const imageBusiness = new ImageBusiness(token);
+      await imageBusiness.del({id})
+
+      response.json({ message: 'Success' });
+      
+    } catch (error) {
+      response
+        .status(error.code || 500)
+        .json({ message: error.sqlMessage || error.message });
+    }
+
+    await BaseData.destroyConnection();
+  }
   public async getById(request: Request, response: Response) {
     try {
       const { id } = request.params;
