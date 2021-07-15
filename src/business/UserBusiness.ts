@@ -24,7 +24,7 @@ export class UserBusiness {
       const hashPassword = await hashManager.hash(password);
 
       const userForDatabase = new User(id, name, nickname, email, hashPassword);
-      const user = await userDatabase.create(userForDatabase);
+      const user = await userDatabase.insert(userForDatabase);
 
       if (!user) {
         throw new Error(
@@ -53,7 +53,7 @@ export class UserBusiness {
       }
       const userDatabase = new UserData();
 
-      const user = login.includes('@') ? await userDatabase.getByEmail(login) : await userDatabase.getByNickname(login)
+      const user = login.includes('@') ? await userDatabase.selectByEmail(login) : await userDatabase.selectByNickname(login)
 
       const hashManager = new HashManager();
 

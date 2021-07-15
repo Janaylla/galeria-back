@@ -80,7 +80,7 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 
 ###
-GET http://localhost:3003/images/f5c88934-ef6a-4497-81f1-65b5df4125c7
+GET http://localhost:3003/images/240a234f-cc1a-4986-a718-3bee1daa353f
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 
@@ -90,9 +90,33 @@ GET  http://localhost:3003/images
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
 
-
 ###
 GET  http://localhost:3003/images
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
+###
 
+GET  http://localhost:3003/images/tag
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
+
+###
+DELETE  http://localhost:3003/images/240a234f-cc1a-4986-a718-3bee1daa353f/tag/9155ad07-ef11-4e38-a03c-e3bc6c057d75
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
+
+###
+PUT http://localhost:3003/images/240a234f-cc1a-4986-a718-3bee1daa353f/tag/9155ad07-ef11-4e38-a03c-e3bc6c057d75
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
+
+
+###
+DELETE  http://localhost:3003/images/240a234f-cc1a-4986-a718-3bee1daa353f/collection/c633b18b-6c33-462f-8582-b4abbf29b094
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
+
+###
+PUT http://localhost:3003/images/240a234f-cc1a-4986-a718-3bee1daa353f/collection/c633b18b-6c33-462f-8582-b4abbf29b094
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjIyMDA0OCwiZXhwIjoxNjI2MzA2NDQ4fQ.fdxeLdQ7VYM-4jL5ssKeIp18W1C_dH78iPv8xPc9Kkk
