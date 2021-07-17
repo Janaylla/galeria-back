@@ -1,5 +1,5 @@
 import { Image } from '../entities/Image'
-import { Collection } from '../entities/Collection';
+import { Collection, CollectionMoreDetails } from '../entities/Collection';
 import { CustomError } from '../error/CustomError';
 import { BaseData } from './BaseData'
 
@@ -43,20 +43,29 @@ export class ImageCollectionData extends BaseData {
         }
     }
     public async delByImageAndCollection(image_id: string, collection_id: string): Promise<boolean> {
+        try {
         const result = await this.getConnection().raw(`
             DELETE FROM ${ImageCollectionData.TABLE_NAME}
             WHERE collection_id = '${collection_id}' and 
             image_id = '${image_id}'
         `)
-
-        return (result[0].affectedRows == true)
+             return (result[0].affectedRows == true)
+        }
+        catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
     }
     public async delByImage(image_id: string): Promise<boolean> {
+        try{
         const result = await this.getConnection().raw(`
             DELETE FROM ${ImageCollectionData.TABLE_NAME}
             WHERE image_id = '${image_id}';
         `)
         return (result[0].affectedRows == true)
+        }
+        catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
     }
     public async delByCollection(collection_id: string): Promise<boolean> {
         const result = await this.getConnection().raw(`
@@ -73,12 +82,40 @@ export class ImageCollectionData extends BaseData {
             WHERE ic.image_id = '${image_id}';`)
         return this.toConnectionsModel(result[0]);
     }
+    public async selectCollectionAll(user_id:string): Promise<CollectionMoreDetails[]>{
+    	try{
+            const result = await this.getConnection().raw(`
+            SELECT DISTINCT '' as id, 'Todos' as name, '${user_id}' as author_id,
+            count(*) as number_of_images,
+            (SELECT si.file FROM galeria_image as si 
+           JOIN galeria_image_collection as sic ON sic.image_id = si.id
+            ORDER BY si.date LIMIT 1) as image_file
+           FROM galeria_image as si
+           WHERE si.author_id = '${user_id}'
+            UNION
+           SELECT DISTINCT  c.id, c.name, c.author_id, count(*), (SELECT si.file FROM galeria_image as si 
+           JOIN galeria_image_collection as sic ON sic.image_id = si.id 
+            WHERE sic.collection_id = c.id 
+            ORDER BY si.date LIMIT 1) 
+           FROM galeria_image_collection as ic
+           LEFT JOIN galeria_collection as c ON ic.collection_id = c.id
+           LEFT JOIN galeria_image as i ON ic.image_id = i.id
+           WHERE i.author_id = '${user_id}'
+           GROUP BY c.id
+            `)
+            return this.toConnectionsMoreDetailModel(result[0])
+         }
+        catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
     private toConnectionsModel(result: any): Collection[] {
         const collections = result.map((collectionResult: any) => {
             const {
                 id,
                 name,
                 author_id
+                
             } = collectionResult;
 
             const collection = new Collection(
@@ -90,5 +127,28 @@ export class ImageCollectionData extends BaseData {
         })
 
         return collections;
+    }
+    private toConnectionsMoreDetailModel(result: any): CollectionMoreDetails[] {
+        const collections = result.map((collectionResult: any) => {
+            const {
+                id,
+                name,
+                author_id,
+                image_file,
+                number_of_images
+            } = collectionResult;
+
+            const collection = new CollectionMoreDetails(
+                id,
+                name,
+                author_id,
+                image_file,
+                number_of_images
+            );
+            return collection
+        })
+
+        return collections;
+      
     }
 }

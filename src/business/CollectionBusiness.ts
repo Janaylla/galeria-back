@@ -1,9 +1,10 @@
 import { collection, collectionInputDTO } from '../types/collection'
 import { CollectionData } from '../data/CollectionData'
 import { IdGenerator } from '../services/IdGenerator'
-import { Collection } from '../entities/Collection'
+import { Collection, CollectionMoreDetails } from '../entities/Collection'
 import { Authenticator } from '../services/Authenticator';
 import { UnauthorizedError } from '../error/UnauthorizedError';
+import { ImageCollectionData } from '../data/ImageCollectionData';
 
 export class CollectionBusiness {
   private token: string | undefined;
@@ -114,6 +115,35 @@ export class CollectionBusiness {
       }
 
       return collections;
+      
+    } catch (error) {
+      throw new Error(error.sqlMessage || error.message || 500);
+    }
+  }
+  public async getAllMoreDetails(): Promise<CollectionMoreDetails[]>{
+    try {
+      const userDatabase = new ImageCollectionData()
+
+      
+      if (!this.token) {
+        throw new UnauthorizedError()
+      }
+
+      const authenticator = new Authenticator();
+      const author = authenticator.getData(this.token)
+
+      if (!author) {
+        throw new UnauthorizedError()
+      }
+
+      const collections = await userDatabase.selectCollectionAll(author.id)
+
+      if (!collections) {
+        throw new Error(
+          'internal error registering user, please try again'
+        );
+      }
+      return collections
       
     } catch (error) {
       throw new Error(error.sqlMessage || error.message || 500);

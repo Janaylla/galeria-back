@@ -71,4 +71,20 @@ export class CollectionController {
 
     await BaseData.destroyConnection();
   }
+  public async getAllMoreDetails(request: Request, response: Response) {
+    try {
+      const token = request.headers.authorization;
+      const collectionBusiness = new CollectionBusiness(token);
+      const collections = await collectionBusiness.getAllMoreDetails()
+
+      response.json({ message: 'Success', collections });
+
+    } catch (error) {
+      response
+        .status(error.code || 500)
+        .json({ message: error.sqlMessage || error.message });
+    }
+
+    await BaseData.destroyConnection();
+  }
 }
