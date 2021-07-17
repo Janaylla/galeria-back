@@ -1,3 +1,5 @@
+import { Collection } from "../entities/Collection";
+
 export type collectionInputDTO = {
     name: string
 };

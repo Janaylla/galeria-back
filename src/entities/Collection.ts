@@ -25,3 +25,19 @@ export class Collection {
     }
   }
   
+  
+export class CollectionMoreDetails extends Collection {
+  private image_file: string
+  private number_of_images: string
+    constructor(
+      id: string,
+      name: string,
+      author_id: string,
+      image_file: string,
+      number_of_images: string
+    ) {
+      super(id, name, author_id);
+      this.image_file = image_file;
+      this.number_of_images = number_of_images
+    }
+}
