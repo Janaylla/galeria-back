@@ -73,6 +73,7 @@ export class CollectionController {
   }
   public async getAllMoreDetails(request: Request, response: Response) {
     try {
+      console.log("asd")
       const token = request.headers.authorization;
       const collectionBusiness = new CollectionBusiness(token);
       const collections = await collectionBusiness.getAllMoreDetails()

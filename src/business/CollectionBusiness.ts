@@ -124,8 +124,7 @@ export class CollectionBusiness {
   public async getAllMoreDetails(): Promise<CollectionMoreDetails[]>{
     try {
       const userDatabase = new ImageCollectionData()
-
-      
+      console.log("asd")
       if (!this.token) {
         throw new UnauthorizedError()
       }
