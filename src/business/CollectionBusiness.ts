@@ -25,20 +25,21 @@ export class CollectionBusiness {
       const idGenerator = new IdGenerator();
       const id = idGenerator.generate();
 
+      console.count("a")
       if (!this.token) {
         throw new UnauthorizedError()
       }
-
+      console.count("a")
       const authenticator = new Authenticator();
       const author = authenticator.getData(this.token)
-
+      console.count("a")
       if (!author) {
         throw new UnauthorizedError()
       }
-
+      console.count("a")
       const collectionForDatabase = new Collection(id, name, author.id);
       const collection = await collectionDatabase.insert(collectionForDatabase);
-
+      console.count("a")
       if (!collection) {
         throw new Error(
           'internal error registering collection, please try again'

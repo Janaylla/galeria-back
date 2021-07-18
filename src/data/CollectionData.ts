@@ -8,9 +8,9 @@ export class CollectionData extends BaseData {
         try {
             await this.getConnection().insert(collection).into(CollectionData.TABLE_NAME);
 
-            const BaseData = await this.selectById(collection.getId());
+            const newCollection = await this.selectById(collection.getId());
 
-            return BaseData;
+            return newCollection;
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);
         }

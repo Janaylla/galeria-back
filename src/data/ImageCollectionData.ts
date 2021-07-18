@@ -98,8 +98,8 @@ export class ImageCollectionData extends BaseData {
            JOIN galeria_image_collection as sic ON sic.image_id = si.id 
             WHERE sic.collection_id = c.id 
             ORDER BY si.date DESC LIMIT 1) 
-           FROM galeria_image_collection as ic
-           LEFT JOIN galeria_collection as c ON ic.collection_id = c.id
+            FROM galeria_collection as c
+           LEFT JOIN galeria_image_collection as ic ON ic.collection_id = c.id
            LEFT JOIN galeria_image as i ON ic.image_id = i.id
            WHERE i.author_id = '${user_id}'
            GROUP BY c.id
