@@ -7,8 +7,8 @@ const imageController = new ImageController();
 
 imageRouter.post('', imageController.create);
 imageRouter.get('', imageController.getAll);
-imageRouter.put('/tag', imageController.putImageTag);
 imageRouter.delete('/:id', imageController.del);
+imageRouter.get('/collection/:collection', imageController.getByCollection);
 
 imageRouter.delete('/:image/tag/:tag', imageController.delImageTag);
 imageRouter.put('/:image/tag/:tag', imageController.putImageTag);

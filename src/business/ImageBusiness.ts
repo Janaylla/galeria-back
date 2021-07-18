@@ -1,4 +1,4 @@
-import { ImageCollectionInputDTO, imageDelInputDTO, imageInputDTO, ImageTagInputDTO } from '../types/image'
+import { getByCollectionIdInputDTO, getByIdInputDTO, ImageCollectionInputDTO, imageDelInputDTO, imageInputDTO, ImageTagInputDTO } from '../types/image'
 import { ImageData } from '../data/ImageData'
 import { IdGenerator } from '../services/IdGenerator'
 import { Image } from '../entities/Image'
@@ -77,7 +77,8 @@ export class ImageBusiness {
       throw new Error(error.sqlMessage || error.message || 500);
     }
   }
-  public async getById(id: string): Promise<Image> {
+  public async getById(input: getByIdInputDTO): Promise<Image> {
+    const {id} = input
     try {
       if (!this.token) {
         throw new UnauthorizedError()
@@ -108,6 +109,36 @@ export class ImageBusiness {
       image.setTags(await imageTagDatabase.selectByImage(id) || [])
       image.setCollections(await imageCollectionDatabase.selectByImage(id) || [])
       return image;
+
+    } catch (error) {
+      throw new Error(error.sqlMessage || error.message || 500);
+    }
+  }
+  public async getByCollection(input: getByCollectionIdInputDTO): Promise<Image[]> {
+    try {
+      const { id } = input;
+      if (!this.token) {
+        throw new UnauthorizedError()
+      }
+      if (!id) {
+        throw new Error(
+          'Missing dependencies: "id"'
+        );
+      }
+      const imageCollectionDatabase = new ImageCollectionData()
+
+      const authenticator = new Authenticator();
+      const user = authenticator.getData(this.token);
+
+      const images = await imageCollectionDatabase.selectImagesByCollection(id)
+
+      if (!images) {
+        throw new Error(
+          'Image not found'
+        );
+      }
+
+      return images;
 
     } catch (error) {
       throw new Error(error.sqlMessage || error.message || 500);
@@ -242,7 +273,6 @@ export class ImageBusiness {
       throw new Error(error.message || 500);
     }
   }
-  
   public async delImageCollection(input: ImageCollectionInputDTO): Promise<void> {
     try {
       const { collection_id, image_id } = input

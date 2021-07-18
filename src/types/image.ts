@@ -15,3 +15,10 @@ export type ImageCollectionInputDTO = {
 export type imageDelInputDTO = {
 	id: string
 }
+export type getByIdInputDTO = {
+	id: string
+}
+
+export type getByCollectionIdInputDTO = {
+	id: string
+}

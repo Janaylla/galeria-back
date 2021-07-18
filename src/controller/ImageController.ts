@@ -28,15 +28,15 @@ export class ImageController {
 
     await BaseData.destroyConnection();
   }
-   public async del(request: Request, response: Response) {
+  public async del(request: Request, response: Response) {
     try {
       const { id } = request.params;
       const token = request.headers.authorization;
       const imageBusiness = new ImageBusiness(token);
-      await imageBusiness.del({id})
+      await imageBusiness.del({ id })
 
       response.json({ message: 'Success' });
-      
+
     } catch (error) {
       response
         .status(error.code || 500)
@@ -50,7 +50,7 @@ export class ImageController {
       const { id } = request.params;
       const token = request.headers.authorization;
       const imageBusiness = new ImageBusiness(token);
-      const image = await imageBusiness.getById(id)
+      const image = await imageBusiness.getById({ id })
 
       response.json({ message: 'Success', image });
 
@@ -142,6 +142,25 @@ export class ImageController {
       const token = request.headers.authorization;
       const imageBusiness = new ImageBusiness(token);
       const images = await imageBusiness.getAll()
+
+      response.json({ message: 'Success', images });
+
+    } catch (error) {
+      response
+        .status(error.code || 500)
+        .json({ message: error.sqlMessage || error.message });
+    }
+
+    await BaseData.destroyConnection();
+  }
+
+  public async getByCollection(request: Request, response: Response) {
+    try {
+      const token = request.headers.authorization;
+      const imageBusiness = new ImageBusiness(token);
+      const { collection } = request.params
+      
+      const images = await imageBusiness.getByCollection({ id: collection })
 
       response.json({ message: 'Success', images });
 

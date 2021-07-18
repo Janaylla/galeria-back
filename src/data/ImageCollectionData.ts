@@ -2,6 +2,7 @@ import { Image } from '../entities/Image'
 import { Collection, CollectionMoreDetails } from '../entities/Collection';
 import { CustomError } from '../error/CustomError';
 import { BaseData } from './BaseData'
+import { User } from '../entities/User';
 
 export class ImageCollectionData extends BaseData {
     private static TABLE_NAME = 'galeria_image_collection';
@@ -109,6 +110,23 @@ export class ImageCollectionData extends BaseData {
             throw new Error(error.sqlMessage || error.message);
         }
     }
+    public async selectImagesByCollection(collection_id:string): Promise<Image[]>{
+    	try{
+            const result = await this.getConnection().raw(`
+            SELECT i.id, i.subtitle, i.date, i.file, i.author_id,
+            u.name as author_name, u.nickname as author_nickname
+           FROM galeria_image as i
+           LEFT JOIN galeria_user as u ON u.id = i.author_id
+           LEFT JOIN galeria_image_collection as ic ON ic.image_id = i.id 
+           LEFT JOIN galeria_collection as c ON c.id = ic.collection_id
+           WHERE  c.id = '${collection_id}'
+            `) 
+            return this.toImagesModel(result[0])
+         }
+        catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
     private toConnectionsModel(result: any): Collection[] {
         const collections = result.map((collectionResult: any) => {
             const {
@@ -151,4 +169,29 @@ export class ImageCollectionData extends BaseData {
         return collections;
       
     }
+    private toImagesModel(result: any): Image[] {
+        return result.map((item: any) => {
+            const {
+                id,
+                subtitle,
+                date,
+                file,
+                author_id,
+                author_name,
+                author_nickname
+            } = item;
+
+            const author = new User(author_id, author_name, author_nickname)
+
+            const image = new Image(
+                id,
+                subtitle,
+                file,
+                date,
+                author
+            );
+            return image
+        })
+    }
+
 }
