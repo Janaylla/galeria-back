@@ -22,7 +22,6 @@ export class ImageData extends BaseData {
             '${image.getFile()}', 
             '${author.getId()}')
             `)
-            console.count("oi")
             const BaseData = await this.selectById(image.getId());
 
             return BaseData;
@@ -50,7 +49,6 @@ export class ImageData extends BaseData {
                 FROM galeria_image as i
                 LEFT JOIN galeria_user as u ON u.id = i.author_id
                 WHERE i.id = '${id}'
-                ORDER BY i.date 
                 `)
 
             if (!result[0].length || !result[0][0].subtitle) {
@@ -71,6 +69,7 @@ export class ImageData extends BaseData {
                 FROM galeria_image as i
                 LEFT JOIN galeria_user as u ON u.id = i.author_id
                 WHERE i.author_id = '${id}'
+                ORDER BY i.date DESC
                 `)
 
             if (!result[0].length) {

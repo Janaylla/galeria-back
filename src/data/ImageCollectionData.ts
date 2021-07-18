@@ -90,14 +90,14 @@ export class ImageCollectionData extends BaseData {
             count(*) as number_of_images,
             (SELECT si.file FROM galeria_image as si 
            JOIN galeria_image_collection as sic ON sic.image_id = si.id
-            ORDER BY si.date LIMIT 1) as image_file
+            ORDER BY si.date DESC LIMIT 1) as image_file
            FROM galeria_image as si
            WHERE si.author_id = '${user_id}'
             UNION
            SELECT DISTINCT  c.id, c.name, c.author_id, count(*), (SELECT si.file FROM galeria_image as si 
            JOIN galeria_image_collection as sic ON sic.image_id = si.id 
             WHERE sic.collection_id = c.id 
-            ORDER BY si.date LIMIT 1) 
+            ORDER BY si.date DESC LIMIT 1) 
            FROM galeria_image_collection as ic
            LEFT JOIN galeria_collection as c ON ic.collection_id = c.id
            LEFT JOIN galeria_image as i ON ic.image_id = i.id
@@ -120,6 +120,7 @@ export class ImageCollectionData extends BaseData {
            LEFT JOIN galeria_image_collection as ic ON ic.image_id = i.id 
            LEFT JOIN galeria_collection as c ON c.id = ic.collection_id
            WHERE  c.id = '${collection_id}'
+           ORDER BY i.date DESC
             `) 
             return this.toImagesModel(result[0])
          }

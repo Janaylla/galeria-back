@@ -84,6 +84,10 @@ GET http://localhost:3003/images/240a234f-cc1a-4986-a718-3bee1daa353f
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjQ3ODcxMywiZXhwIjoxNjI2NTY1MTEzfQ.E2XqlUVnnRfE6YhsUVXj_Gqduo26wXMHlyMTDHzHiRk
 
+###
+GET http://localhost:3003/images/collection/c633b18b-6c33-462f-8582-b4abbf29b094
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjU2OTk0NiwiZXhwIjoxNjI2NjU2MzQ2fQ.y-s821Gu0T5nc6TXv_D8M2oDd_WeuEnKDm6cRMYD-5E
 
 ###
 GET  http://localhost:3003/images
