@@ -94,7 +94,7 @@ export class ImageCollectionData extends BaseData {
            FROM galeria_image as si
            WHERE si.author_id = '${user_id}'
             UNION
-           SELECT DISTINCT  c.id, c.name, c.author_id, count(*), (SELECT si.file FROM galeria_image as si 
+           SELECT DISTINCT  c.id, c.name, c.author_id, count(i.id), (SELECT si.file FROM galeria_image as si 
            JOIN galeria_image_collection as sic ON sic.image_id = si.id 
             WHERE sic.collection_id = c.id 
             ORDER BY si.date DESC LIMIT 1) 
