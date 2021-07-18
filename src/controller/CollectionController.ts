@@ -6,8 +6,8 @@ export class CollectionController {
   public async create(request: Request, response: Response) {
     try {
       const { name } = request.body;
-
-      const collectionBusiness = new CollectionBusiness();
+      const token = request.headers.authorization;
+      const collectionBusiness = new CollectionBusiness(token);
       await collectionBusiness.create({
         name
       })

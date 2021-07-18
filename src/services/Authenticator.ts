@@ -4,7 +4,7 @@ import { AuthenticationData } from '../types/user'
 export class Authenticator {
   public generateToken(
     input: AuthenticationData,
-    expiresIn: string = '24h'
+    expiresIn: string = '2 days'
   ): string {
     const token = jwt.sign(
       {
