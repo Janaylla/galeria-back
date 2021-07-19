@@ -130,6 +130,21 @@ export class ImageCollectionData extends BaseData {
             throw new Error(error.sqlMessage || error.message);
         }
     }
+    public async insertsCollection(collection:Collection, images: Image[]): Promise<true | false> {
+        try {
+            images.forEach(async (image: Image) => {
+                await this.getConnection().raw(`
+                INSERT INTO ${ImageCollectionData.TABLE_NAME}
+                 (image_id, collection_id) VALUES ('${image.getId()}', '${collection.getId()}')
+                `)
+            })
+
+            return true;
+
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
     private toConnectionsModel(result: any): Collection[] {
         const collections = result.map((collectionResult: any) => {
             const {

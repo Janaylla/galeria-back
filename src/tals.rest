@@ -73,6 +73,13 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzIt
 	]
 }
 
+PUT http://localhost:3003/collections/040ab732-ce51-42db-a57a-acc3574588bf/images 
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjZiOWRkLWJiNzItNDZhZS04ZjQwLWNhZDE5Y2EzYzQ2NyIsImlhdCI6MTYyNjU1OTU0OCwiZXhwIjoxNjI2NjQ1OTQ4fQ.cOPaSJ-81VDoEltWf4K7-oHfhD24CUyE6vSd3bfBzRM
+
+{
+	"images_id": []
+}
 
 ###
 GET http://localhost:3003/images/1388afac-450b-43ab-8bf9-adca18d4cf5c
