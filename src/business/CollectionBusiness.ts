@@ -1,10 +1,13 @@
-import { collection, collectionInputDTO } from '../types/collection'
+import { collection, collectionImagesInputDTO, collectionInputDTO } from '../types/collection'
 import { CollectionData } from '../data/CollectionData'
 import { IdGenerator } from '../services/IdGenerator'
 import { Collection, CollectionMoreDetails } from '../entities/Collection'
 import { Authenticator } from '../services/Authenticator';
 import { UnauthorizedError } from '../error/UnauthorizedError';
 import { ImageCollectionData } from '../data/ImageCollectionData';
+import { ImageData } from '../data/ImageData';
+import { Image } from '../entities/Image';
+import { CustomError } from '../error/CustomError';
 
 export class CollectionBusiness {
   private token: string | undefined;
@@ -124,8 +127,7 @@ export class CollectionBusiness {
   public async getAllMoreDetails(): Promise<CollectionMoreDetails[]>{
     try {
       const userDatabase = new ImageCollectionData()
-
-      
+      console.log("asd")
       if (!this.token) {
         throw new UnauthorizedError()
       }
@@ -150,4 +152,47 @@ export class CollectionBusiness {
       throw new Error(error.sqlMessage || error.message || 500);
     }
   }
+  
+  public async putCollectionImages(input: collectionImagesInputDTO): Promise<any>{
+    try {
+      const collectionDatabase = new CollectionData()
+      const imagesDatabase = new ImageData()
+      const imagesCollectionDatabase = new ImageCollectionData()
+      const {id, images_id} = input
+
+      if (!this.token) {
+        throw new UnauthorizedError()
+      }
+
+      const authenticator = new Authenticator();
+      const author = authenticator.getData(this.token)
+
+      if (!author) {
+        throw new UnauthorizedError()
+      }
+
+      const collection = await collectionDatabase.selectById(id)
+      if(!collection){
+        throw new CustomError("Not found collection", 404)
+      }
+      
+      const images:Image[] = []
+      images_id.forEach(async (id) => {
+        const image = await imagesDatabase.selectById(id) 
+        if(!image){
+          throw new CustomError("Not found image", 404)
+        }
+        images.push(image)
+      })
+
+      await imagesCollectionDatabase.delByCollection(collection.getId())
+      await imagesCollectionDatabase.insertsCollection(collection, images)
+
+      return true
+      
+    } catch (error) {
+      throw new Error(error.sqlMessage || error.message || 500);
+    }
+  }
+  
 }

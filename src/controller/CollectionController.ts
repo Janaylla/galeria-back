@@ -87,4 +87,22 @@ export class CollectionController {
 
     await BaseData.destroyConnection();
   }
+  public async putCollectionImage(request: Request, response: Response) {
+    try {
+      const token = request.headers.authorization;
+      const { images_id} = request.body;
+      const {collection} = request.params
+      const collectionBusiness = new CollectionBusiness(token);
+      await collectionBusiness.putCollectionImages({id:collection, images_id})
+
+      response.json({ message: 'Success' });
+
+    } catch (error) {
+      response
+        .status(error.code || 500)
+        .json({ message: error.sqlMessage || error.message });
+    }
+
+    await BaseData.destroyConnection();
+  }
 }
